@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2018 by anshumandubey (http://jsbin.com/boraye/28/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2018 by anshumandubey (http://jsbin.com/boraye/13/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2018 by anonymous (http://jsbin.com/huvufupero/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+  <title> Follow the BALL - Js Game</title>
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A js game">
+  <meta name="author" content="anshumandubey">
+</head>
+  <style>
+
+  @font-face {
+         font-family: "kongtext";
+         src: url(http://fontsforweb.com/public/fonts/836/kongtext.eot);
+         src: local(" real FontName "), url(http://fontsforweb.com/public/fonts/836/kongtext.ttf) format("truetype");
+     }
+
+
+  	body {
+  		background: #1a3850;
+
+      transition: all 1000ms;
+  	}
+    #grad1 {
+    width: 100%;
+      top: 0px;
+      left: 0px;
+      height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(0,0,0,1));
+     z-index: 11;
+
+      position: absolute;
+}
+    #bgcn {
+       background-image: url("https://ih0.redbubble.net/image.49305284.1306/flat,800x800,075,t.u4.jpg");
+      width: 100%;
+      top: 0px;
+      left: 0px;
+      height: 100%;
+      position: absolute;
+      opacity: 0.2;
+    z-index: -2;
+        -webkit-animation: loader 12s steps(500) infinite;
+    -moz-animation: loader 12s steps(500) infinite;
+    -ms-animation: loader 12s steps(500) infinite;
+    -o-animation: loader 12s steps(500) infinite;
+    animation: loader 12s steps(500) infinite;
+    }
+    #hand {
+       position: absolute;
+       left: 31px;
+       top: 25px;
+       width:250px;
+       height: 250px;
+       border-radius: 50%;
+       transition: all 200ms;
+
+     }
+     #animate {
+         top: 1px;
+         left: 193px;
+ 		width: 40px;
+ 		height: 40px;
+ 		background: tomato;
+ 		position: absolute;
+       border-radius: 50%;
+       transition: all 500ms;
+ 	}
+ 	#container{
+ 		border: solid 0px #000000;
+ 		background: rgba(0,0,0,0);
+ 		box-shadow: 0px 0px 0px 0px rgba(0,0,0,0);
+ 		transform-style: preserve-3d;
+ 		transform: rotateZ(-24deg);
+ 	}
+     #box-5 {
+       transition: all 500ms;
+         width: 132px;
+         border-bottom: 90px solid #1a3850;
+         border-left: 90px solid transparent;
+         border-right: 90px solid transparent;
+     }
+     #box-6 {
+       position:absolute;
+       transition: all 500ms;
+         width: 132px;
+         border-top: 90px solid #1a3850;
+         border-left: 90px solid transparent;
+         border-right: 90px solid transparent;
+     }
+     #box-7 {
+
+         width: 312px;
+         height: 132px;
+         background-color: #1a3850;
+       transition: all 500ms;
+     }
+     #buttonStart {
+     width:80px;
+     height:50px;
+     font-family: "kongtext";
+       font-size: 10px;
+     background: #66666;
+     position: relative;
+     border-radius: 10px;
+     border-style: none;
+     color: #333333;
+     border: solid 2px #555555;
+   }
+     #buttonStop {
+     width:80px;
+     height:50px;
+     font-family: "kongtext";
+       font-size: 10px;
+     background: #66666;
+     position: relative;
+     border-radius: 10px;
+     border-style: none;
+     color: #333333;
+     border: solid 2px #555555;
+   }
+      #buttonSpc {
+     width:50px;
+     height:50px;
+     background: #66666;
+     position: relative;
+     border-radius: 10px;
+     border-style: none;
+     color: #111111;
+     margin-right: 5px;
+     margin-bottom: -10px;
+     border: solid 2px #444444;
+   }
+
+      #scr {
+       position: absolute;
+       top: 45%;
+       left: 78%;
+       font-size: 20px;
+       line-height: 40px;
+       text-align: center;
+       font-family: "kongtext";
+       padding: 30px;
+       padding-top: 15px;
+       padding-bottom: 15px;
+       border-radius: 30px;
+       box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.5);
+       transition: 0.6s;
+       color: #444444;
+       background-color: #e0e0e0;
+       border: solid 7px #444444;
+      -webkit-transform: translateY(-65%);
+  -ms-transform: translateY(-65%);
+  transform: translateY(-65%);
+     }
+     #gover {
+     display: none;
+     position: fixed;
+      letter-spacing: 8px;
+     font-size: 75px;
+     position: absolute;
+     font-family: "kongtext";
+     font-weight: bold;
+     text-align: center;
+     height:100%;
+     width: 100%;
+     z-index: 100;
+     color: #f1f1f1;
+     background:rgba(0,0,0,0.8);
+     top: 0px;
+     left: 0px;
+     transition: all 500ms;
+   }
+   #buttonRestart {
+      letter-spacing: normal;
+     font-size: 12px;
+     font-family: "kongtext";
+     height: 50px;
+     width: 250px;
+     position:relative;
+     padding-left:80px;
+     padding-right:80px;
+     background: #66666;
+   border-radius: 10px;
+   border-style: none;
+   color: #111111;
+   border: solid 2px #444444;
+   }
+     #buttonContainer{
+ 	  box-shadow: 0px 0px 20px 2px rgba(0,0,0,0.2);
+ 		position: absolute;
+       left: 390px;
+       top: 55px;
+ 		background-color: #444444;
+ 		border-radius: 20px 20px 20px 20px;
+ 		width: 175px;
+ 		padding-top:  10px;
+ 		padding-right:  5px;
+ 		padding-bottom: 22px;
+ 		padding-left: 12px;
+ 	}
+     #wholeContainer{
+ 	  box-shadow: 0px 0px 20px 5px rgba(0,0,0,0.5);
+ 		top: 50%;
+       width: 580px;
+       height: 340px;
+ 		left: 50%;
+    margin-right: auto;
+ 		position: absolute;
+ 		background-color: #777777;
+ 		border-radius: 25px 25px 25px 25px;
+ 		padding: 20px;
+    -ms-transform: translateX(-50%) translateY(-50%);
+      -webkit-transform: translate(-50%,-50%);
+      transform: translate(-50%,-50%);
+ 	}
+  #detailButton {
+  	width: 130px;
+  	height: 70px;
+  	border-style: none;
+  	position: absolute;
+  	top: 70px;
+  	left: -130px;
+    padding-left: 13px;
+  	z-index: 100;
+    color: #444444;
+      background-color: #e0e0e0;
+      border: solid #444444;
+      border-width:  8px 0px 8px 8px;
+  	font-family: "kongtext";
+  	font-size: 10px;
+  	border-radius: 15px 0px 0px 15px;
+    box-shadow: -10px 0px 20px 5px rgba(0,0,0,0.5);
+
+  }
+
+    #details {
+    	position: fixed;
+    	top: 0px;
+      height: 100%;
+      width: 0%;
+      right: 0px;
+      background : #444444;
+      transition: 0.5s;
+      box-shadow: 0px 0px 10px 1px #333333;
+    }
+    #detText {
+    	margin-left: 15px;
+    	color: #f2f2f2;
+    	font-family: "kongtext";
+    	font-size: 1em;
+    	letter-spacing: 1px;
+    }
+    #info {
+    	opacity: 0;
+    	transition: 01s;
+
+    }
+    #htp {
+    	opacity: 0;
+    	position: absolute;
+    	padding-right: 20px;
+    	top: 20px;
+    	transition: 01s;
+    	color: #f2f2f2;
+    	font-family: "kongtext";
+    	font-size: 0.8em;
+      line-height: 25px;
+    	letter-spacing: 0.8px;
+    	margin-top: 30px;
+    }
+    #def {
+      font-family: "kongtext";
+      text-align: center;
+      position: absolute;
+      left: 60px;
+      top: 50%;
+      background: #e0e0e0;
+      color: #444444;
+      padding: 20px;
+      border: solid 8px #444444;
+      border-radius: 30px;
+      box-shadow: 0px 20px 20px 5px rgba(0,0,0,0.5);
+      -webkit-transform: translateY(-65%);
+  -ms-transform: translateY(-65%);
+  transform: translateY(-65%);
+    }
+
+
+@-webkit-keyframes loader {
+  from {
+    background-position: 0;
+  }
+  to {
+    background-position: 0 1600px;
+  }
+}
+@-moz-keyframes loader {
+  from {
+    background-position: 0;
+  }
+  to {
+    background-position: 0 1600px;
+  }
+}
+@-ms-keyframes loader {
+  from {
+    background-position: 0;
+  }
+  to {
+    background-position: 0 1600px;
+  }
+}
+@-o-keyframes loader {
+  from {
+    background-position: 0;
+  }
+  to {
+    background-position: 0 1600px;
+  }
+}
+@keyframes loader {
+  from {
+    background-position: 0;
+  }
+  to {
+    background-position: 0 1600px;
+  }
+}
+
+
+</style>
+<body>
+	<div id ="gover"><br><br>GAME OVER<br>
+  <button class="11" id="buttonRestart" onclick="start(); dsply();">Restart</button>
+  <button class="11" id="buttonRestart" onclick="dsply()">Back</button>
+  </div>
+  <p id="scr">Score <br> 0</p>
+  <div id="def">
+    <span style="font-size: 1.1em;">Follow the</span><br>
+    <span id="titlePointer" style="font-size: 3em;color: tomato;transition: all 1000ms;">BALL</span><br>
+    <span style="font-size: 0.4em;">Press ENTER or START to begin</span>
+  </div>
+
+  <div id="wholeContainer">
+<div id="container" style="float: left; width: 400px;-webkit-transform-style: preserve-3d;-webkit-transform: rotateZ(-24deg);">
+
+    <div id="box-5"></div>
+    <div id="box-7"></div>
+    <div id="box-6"></div>
+   <div id="animate"></div>
+  <img id="hand" style="transform: rotate(24deg)" src="http://www.themanchallenge.com.au/assets/home/clock-hand-8088060876239745ea8af8df344ac6069db3b0b73e0f2c5dbd818648bd1e9371.png" alt="arrow">
+
+
+</div>
+
+
+   <div id="buttonContainer">
+   <button class="1" id="buttonSpc" onclick="moveOff(); color();">&#x2196;</button>
+  <button class="2" id="buttonSpc" onclick="moveUp(); color();">&#x2191;</button>
+   <button class="3" id="buttonSpc" onclick="moveAlton(); color();">&#x2197;</button><br><br>
+  <button class="4" id="buttonSpc" onclick="moveLeft(); color();">&#x2190;</button>
+  <button id="buttonSpc" style="background: #c4c4c4;">&nbsp;</button>
+    <button class="6" id="buttonSpc" onclick="moveRight(); color();">&#x2192;</button><br><br>
+    <button class="7" id="buttonSpc" onclick="moveAltoff(); color();">&#x2199;</button>
+    <button class="8" id="buttonSpc" onclick="moveDown(); color();">&#x2193;</button>
+  <button class="9" id="buttonSpc" onclick="moveOn(); color();">&#x2198;</button>
+ <br><br> <button class="10" id="buttonStart" onclick="start()">START</button>&nbsp;
+   <button class="11" id="buttonStop" onclick="stop()">STOP</button>
+  </div>
+
+  </div>
+
+  <div id="details">
+  	<button id="detailButton" onclick="openDet()">Controls</button>
+  	<button id="detailButton" onclick="openHtp()" style="top: auto;bottom: 70px;">How to play</button>
+  	<br>
+  	<div id="info">
+        <button class="3" id="buttonSpc">&#x2197;</button><span id="detText">Num Pad 9</span><br><br>
+  		<button class="2" id="buttonSpc">&#x2191;</button><span id="detText">Num Pad 8</span><br><br>
+		<button class="1" id="buttonSpc">&#x2196;</button><span id="detText">Num Pad 7</span><br><br>
+      	<button class="6" id="buttonSpc">&#x2192;</button><span id="detText">Num Pad 6</span><br><br>
+		<button class="4" id="buttonSpc">&#x2190;</button><span id="detText">Num Pad 4</span><br><br>
+ 		<button class="9" id="buttonSpc">&#x2198;</button><span id="detText">Num Pad 3</span><br><br>
+        <button class="8" id="buttonSpc">&#x2193;</button><span id="detText">Num Pad 2</span><br><br>
+ 		<button class="7" id="buttonSpc">&#x2199;</button><span id="detText">Num Pad 1</span><br><br>
+  		<button class="10" id="buttonStart">START</button><span id="detText">Enter</span><br>
+  		<button class="11" id="buttonStop" style="margin-top: 10px;">STOP</button><span id="detText">Space</span>
+  	</div>
+  	<span id="htp">
+  		The ball is going to move to any random corner of the octagonal screen. You have to move the pointer head in the same corner and follow the movement of
+      the ball continuously. Don't miss or move the pointer head to the wrong corner before the next movement of ball.<br> GOOD LUCK
+  	</span>
+
+  </div>
+
+
+
+  <script>
+
+  var time=1500;
+  var rot = 24;
+  var edge = 1;
+  var cntrl;
+  var score=0,res=[],i=0;
+  var hand = document.getElementById('hand');
+  var ball = document.getElementById('animate');
+	var detail1 = document.getElementById('details');
+	detail1.style.width = "0%";
+    function openDet() {
+    	if(detail1.style.width == "0%"){
+    	detail1.style.width = "300px";
+    	document.getElementById('htp').style.display = "none";
+    	detail1.style.paddingLeft = "25px";
+    	document.getElementById('info').style.opacity = 1;
+    	document.getElementById('info').style.display = "block";
+    	document.getElementById('info').style.transition = "1s";
+    	}
+    	else{
+    	detail1.style.paddingLeft = "0px";
+    	detail1.style.width = "0%";
+    	document.getElementById('info').style.opacity = 0;
+    	document.getElementById('info').style.transition = "0.3s";
+    	}
+    }
+    function openHtp() {
+    	if(detail1.style.width == "0%"){
+    	detail1.style.width = "300px";
+    	document.getElementById('info').style.display = "none";
+    	detail1.style.paddingLeft = "25px";
+		document.getElementById('htp').style.display = "block";
+
+    	document.getElementById('htp').style.opacity = 1;
+    	document.getElementById('htp').style.transition = "1s";
+    	}
+    	else{
+    	detail1.style.paddingLeft = "0px";
+    	detail1.style.width = "0%";
+    	document.getElementById('htp').style.opacity = 0;
+    	document.getElementById('htp').style.transition = "0.3s";
+    	}
+    }
+
+         function dsply() {
+          score=0;
+          document.getElementById('gover').style.display = "none";
+          document.getElementById('scr').innerHTML = "Score <br>"+score;
+        }
+
+
+        function start(){
+
+         cntrl = setInterval(function game(){var angl = getRandomInt(1,8);
+         switch (angl)
+           {
+             case 1:ball.style.top = 1+"px";
+               ball.style.left = 193+"px";
+               res[i]=1;
+               i++;
+               break;
+             case 2:ball.style.top = 79+"px";
+               ball.style.left = 270+"px";
+                res[i]=2;
+               i++;
+               break;
+             case 3:ball.style.top = 193+"px";
+               ball.style.left = 270+"px";
+                res[i]=3;
+               i++;
+               break;
+              case 4:ball.style.top = 270+"px";
+               ball.style.left = 193+"px";
+                res[i]=4;
+               i++;
+               break;
+              case 5:ball.style.top = 270+"px";
+               ball.style.left = 79+"px";
+                res[i]=5;
+               i++;
+               break;
+              case 6:ball.style.top = 193+"px";
+               ball.style.left = 1+"px";
+                res[i]=6;
+               i++;
+               break;
+              case 7:ball.style.top = 79+"px";
+               ball.style.left = 1+"px";
+                res[i]=7;
+               i++;
+               break;
+              case 8:ball.style.top = 1+"px";
+               ball.style.left = 79+"px";
+                res[i]=8;
+               i++;
+               break;
+           }
+            time-=50;
+            calScore();
+        },time);
+        }
+           function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function stop(){
+          clearInterval(cntrl);
+        }
+
+        function color() {
+          var smallBox = document.getElementById('animate');
+          var bigBox = document.getElementById('box-7');
+          var bigBox1 = document.getElementById('box-5');
+          var bigBox2 = document.getElementById('box-6');
+          var tP = document.getElementById('titlePointer');
+      var bgBox = document.getElementsByTagName('body')[0];
+
+
+           var smallColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+          bigBox.style.backgroundColor = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+
+          bigBox1.style.borderBottomColor = bigBox.style.backgroundColor;
+          bigBox2.style.borderTopColor = bigBox.style.backgroundColor;
+          var col = bigBox.style.backgroundColor;
+        var new_col = col.replace(/rgb/i, "rgba");
+   new_col = new_col.replace(/\)/i,', 0.9)');
+     bgBox.style.background =  new_col;
+          bgBox.style.background =  new_col;
+          tP.style.color = smallColor ;
+          smallBox.style.background = smallColor;
+        }
+
+        function calScore() {
+
+          if(res[i-2]==edge)
+            {
+              score+=20;
+            }
+          else{
+            if(time<1450){
+              stop();
+              document.getElementById('gover').style.display = "block";
+              }
+          }
+
+          document.getElementById('scr').innerHTML = "Score <br>"+score;
+
+
+        }
+
+
+
+        function moveOn() {
+    		hand.style.transform = "rotate(" +(rot+135)+"deg)";
+          edge = 4;
+        }
+        function moveDown() {
+    		if(edge==8 || edge==6 || edge==7)
+            hand.style.transform = "rotate(" +(rot-180)+"deg)";
+            else
+    		hand.style.transform = "rotate(" +(rot+180)+"deg)";
+          edge = 5;
+        }
+        function moveRight() {
+    		if(edge==6)
+            hand.style.transform = "rotate(" +(rot-270)+"deg)";
+            else
+    		hand.style.transform = "rotate(" +(rot+90)+"deg)";
+          edge = 3;
+        }
+        function moveOff() {
+    		if(edge>4)
+            hand.style.transform = "rotate(" +(rot-47)+"deg)";
+            else
+    		hand.style.transform = "rotate(" +(rot-47)+"deg)";
+            edge = 8;
+        }
+        function moveUp() {
+            hand.style.transform = "rotate(" +rot+"deg)";
+          edge = 1;
+        }
+        function moveLeft() {
+          if(edge>3 && edge<7)
+            hand.style.transform = "rotate(" +(rot+268)+"deg)";
+            else
+    		hand.style.transform = "rotate(" +(rot-92)+"deg)";
+          edge = 7;
+        }
+        function moveAltoff() {
+    		if(edge==5 || edge==8 || edge==1)
+            hand.style.transform = "rotate(" +(rot-135)+"deg)";
+            else
+    		hand.style.transform = "rotate(" +(rot+225)+"deg)";
+          edge = 6;
+        }
+        function moveAlton() {
+    		hand.style.transform = "rotate(" + (rot+44)+"deg)";
+          edge = 2;
+        }
+
+    document.onkeydown = function(e) {
+    switch (e.keyCode) {
+        case 97:
+            moveAltoff(); color();
+            break;
+        case 98:
+            moveDown(); color();
+            break;
+        case 99:
+            moveOn(); color();
+            break;
+        case 100:
+            moveLeft(); color();
+            break;
+        case 102:
+            moveRight(); color();
+            break;
+        case 103:
+            moveOff(); color();
+            break;
+        case 104:
+            moveUp(); color();
+            break;
+        case 105:
+            moveAlton(); color();
+            break;
+        case 13:
+            start();
+            break;
+        case 32:
+            stop();
+            break;
+    }
+    };
+  </script>
+<div id ="bgcn"><div>
+  <div id="grad1"></div>
+</body>
+</html>
