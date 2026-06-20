@@ -1,4 +1,0 @@
-User-Agent: *
-Disallow: 
-
-Sitemap: http://imanshuman.rf.gd/sitemap.xml
